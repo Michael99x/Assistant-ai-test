@@ -5,7 +5,7 @@ const askBtn = document.getElementById("askBtn");
 const responseBox = document.getElementById("responseBox");
 
 // Cambia esta URL por la de tu backend desplegado
-const BACKEND_URL = "http://localhost:3000/analyze";
+const BACKEND_URL = "https://assistant-ai-test.onrender.com/analyze";
 
 let excelData = null;
 let excelSummary = null;
@@ -95,4 +95,5 @@ async function sendQuestion() {
     console.error(error);
     responseBox.textContent = `Error: ${error.message}`;
   }
+
 }
