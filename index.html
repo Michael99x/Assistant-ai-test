@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Demo Asistente IA</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="container">
+    <h1>Demo de Asistente Virtual</h1>
+    <p class="subtitle">
+      Sube un archivo Excel, haz una pregunta y el asistente responderá usando el contenido del archivo.
+    </p>
+
+    <section class="card">
+      <label for="excelFile">Subir archivo Excel (.xlsx):</label>
+      <input type="file" id="excelFile" accept=".xlsx,.xls" />
+      <p id="fileStatus" class="status">No hay archivo cargado.</p>
+    </section>
+
+    <section class="card">
+      <label for="question">Tu pregunta:</label>
+      <textarea
+        id="question"
+        rows="5"
+        placeholder="Ejemplo: ¿Cuáles son los riesgos más frecuentes en esta base de datos?"
+      ></textarea>
+      <button id="askBtn">Preguntar</button>
+    </section>
+
+    <section class="card">
+      <h2>Respuesta del asistente</h2>
+      <div id="responseBox" class="response">
+        Aquí aparecerá la respuesta.
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
