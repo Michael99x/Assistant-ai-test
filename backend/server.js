@@ -9,7 +9,7 @@ const app = express();
 const port = process.env.PORT || 10000;
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
 app.use(cors());
 app.use(express.json({ limit: "10mb" }));
@@ -22,33 +22,39 @@ app.post("/analyze", async (req, res) => {
   try {
     const { question, excelSummary, excelData } = req.body;
 
+    if (!question || !excelSummary || !excelData) {
+      return res.status(400).json({
+        error: "Faltan datos: question, excelSummary o excelData."
+      });
+    }
+
     const limitedData = excelData.slice(0, 50);
 
     const prompt = `
-Eres un asistente especializado en analizar bases de datos.
+Eres un asistente especializado en analizar bases de datos pequeñas.
+Debes responder en español.
+Responde solo con base en la información suministrada.
+Si algo no aparece en los datos, dilo claramente y no inventes.
 
-Archivo: ${excelSummary.fileName}
-Hoja: ${excelSummary.sheetName}
-Registros: ${excelSummary.totalRows}
-Columnas: ${excelSummary.columns.join(", ")}
+Resumen del archivo:
+- Nombre del archivo: ${excelSummary.fileName}
+- Hoja: ${excelSummary.sheetName}
+- Total de registros: ${excelSummary.totalRows}
+- Columnas: ${excelSummary.columns.join(", ")}
 
-Datos:
+Muestra de datos (máximo 50 registros):
 ${JSON.stringify(limitedData, null, 2)}
 
-Pregunta:
+Pregunta del usuario:
 ${question}
-
-Responde en español.
 `;
 
     const result = await model.generateContent(prompt);
-    const response = await result.response;
-    const text = response.text();
+    const text = result.response.text();
 
     res.json({ answer: text });
-
   } catch (error) {
-    console.error(error);
+    console.error("Error en /analyze:", error);
     res.status(500).json({
       error: "Error al consultar Gemini."
     });
@@ -58,3 +64,4 @@ Responde en español.
 app.listen(port, () => {
   console.log(`Servidor escuchando en puerto ${port}`);
 });
+
