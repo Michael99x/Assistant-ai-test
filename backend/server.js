@@ -1,80 +1,60 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import OpenAI from "openai";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 10000;
 
-const client = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY
-});
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
 app.use(cors());
 app.use(express.json({ limit: "10mb" }));
 
 app.get("/", (req, res) => {
-  res.json({ ok: true, message: "Backend funcionando." });
+  res.json({ ok: true, message: "Backend funcionando con Gemini." });
 });
 
 app.post("/analyze", async (req, res) => {
   try {
     const { question, excelSummary, excelData } = req.body;
 
-    if (!question || !excelSummary || !excelData) {
-      return res.status(400).json({
-        error: "Faltan datos: question, excelSummary o excelData."
-      });
-    }
+    const limitedData = excelData.slice(0, 50);
 
-    const limitedData = excelData.slice(0, 50); // limita registros para demo
+    const prompt = `
+Eres un asistente especializado en analizar bases de datos.
 
-    const systemPrompt = `
-Eres un asistente virtual especializado en analizar bases de datos pequeñas cargadas por el usuario.
-Debes responder en español.
-Tu tarea es:
-1. Explicar qué contiene la base de datos.
-2. Responder únicamente con base en la información proporcionada.
-3. Identificar riesgos, amenazas, patrones, inconsistencias, pérdidas potenciales y oportunidades de mejora cuando sea posible.
-4. Sugerir indicadores si la información lo permite.
-5. Si algo no aparece en los datos, debes decirlo claramente y no inventar.
+Archivo: ${excelSummary.fileName}
+Hoja: ${excelSummary.sheetName}
+Registros: ${excelSummary.totalRows}
+Columnas: ${excelSummary.columns.join(", ")}
 
-Mantén respuestas claras, profesionales y fáciles de exponer en una demostración.
-`;
-
-    const userContent = `
-Resumen del archivo:
-- Nombre del archivo: ${excelSummary.fileName}
-- Hoja: ${excelSummary.sheetName}
-- Total de registros: ${excelSummary.totalRows}
-- Columnas: ${excelSummary.columns.join(", ")}
-
-Muestra de datos (máximo 50 registros):
+Datos:
 ${JSON.stringify(limitedData, null, 2)}
 
-Pregunta del usuario:
+Pregunta:
 ${question}
+
+Responde en español.
 `;
 
-    const response = await client.responses.create({
-      model: "gpt-5.4",
-      instructions: systemPrompt,
-      input: userContent
-    });
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    const text = response.text();
 
-    return res.json({
-      answer: response.output_text
-    });
+    res.json({ answer: text });
+
   } catch (error) {
-    console.error("Error en /analyze:", error);
-    return res.status(500).json({
-      error: "Error interno al consultar OpenAI."
+    console.error(error);
+    res.status(500).json({
+      error: "Error al consultar Gemini."
     });
   }
 });
 
 app.listen(port, () => {
-  console.log(`Servidor escuchando en http://localhost:${port}`);
+  console.log(`Servidor escuchando en puerto ${port}`);
 });
