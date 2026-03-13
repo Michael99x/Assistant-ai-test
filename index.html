@@ -3,117 +3,93 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mikey Assist</title>
+  <title>Demo Asistente IA</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="bg-glow glow-one"></div>
-  <div class="bg-glow glow-two"></div>
+  <div class="bg-glow glow-1"></div>
+  <div class="bg-glow glow-2"></div>
 
-  <main class="page">
-    <header class="hero fade-up">
-      <div class="hero-avatar glow-pulse">🤖</div>
-      <h1 class="hero-title">
-        <span class="gradient-text">Mikey Assist</span><br />
-        <span class="hero-title-secondary">de Análisis de Datos</span>
-      </h1>
-      <p class="hero-subtitle">
-        Carga tus archivos, haz preguntas y obtén respuestas inteligentes impulsadas por inteligencia artificial.
-      </p>
-    </header>
-
-    <section class="section fade-up delay-1">
-      <div class="section-label">
-        <span>✨</span>
-        <h2>Fuentes de datos</h2>
-      </div>
-
-      <div class="upload-grid">
-        <div class="upload-card glass-surface" id="excelDropzone">
-          <input type="file" id="excelFile" accept=".xlsx,.xls" hidden />
-          <div class="upload-empty" id="excelEmpty">
-            <div class="upload-icon excel-icon">📊</div>
-            <p class="upload-title">Archivo Excel</p>
-            <p class="upload-subtitle">.xlsx, .xls — Datos principales</p>
-            <p class="upload-hint">Arrastra o haz clic para subir</p>
-          </div>
-          <div class="upload-loaded hidden" id="excelLoaded">
-            <div class="upload-file-icon success-bg">📊</div>
-            <div class="upload-file-info">
-              <p class="upload-file-name" id="excelName"></p>
-              <p class="upload-file-meta success-text" id="excelMeta"></p>
-            </div>
-            <button class="remove-btn" id="removeExcel" type="button">✕</button>
-          </div>
+  <main class="app-shell">
+    <section class="hero">
+      <div class="hero-badge">✨ Asistente inteligente</div>
+      <div class="hero-main">
+        <div class="avatar-card">
+          <div class="avatar-orbit orbit-1"></div>
+          <div class="avatar-orbit orbit-2"></div>
+          <div class="avatar-core">🤖</div>
+          <p class="avatar-status"><span class="status-dot"></span> Lista para analizar</p>
         </div>
 
-        <div class="upload-card glass-surface" id="wordDropzone">
-          <input type="file" id="knowledgeFile" accept=".docx" hidden />
-          <div class="upload-empty" id="wordEmpty">
-            <div class="upload-icon word-icon">📄</div>
-            <p class="upload-title">Documento Word</p>
-            <p class="upload-subtitle">.docx — Conocimiento adicional</p>
-            <p class="upload-hint">Arrastra o haz clic para subir</p>
+        <div class="hero-copy">
+          <h1>Tu asistente virtual para analizar archivos y conocimiento extra</h1>
+          <p class="subtitle">
+            Sube un Excel, agrega un documento Word como base de conocimiento y haz preguntas con una interfaz más moderna y clara.
+          </p>
+
+          <div class="hero-tags">
+            <span>📊 Excel</span>
+            <span>📄 Word</span>
+            <span>💬 Respuestas guiadas</span>
           </div>
-          <div class="upload-loaded hidden" id="wordLoaded">
-            <div class="upload-file-icon accent-bg">📄</div>
-            <div class="upload-file-info">
-              <p class="upload-file-name" id="wordName"></p>
-              <p class="upload-file-meta accent-text" id="wordMeta"></p>
-            </div>
-            <button class="remove-btn" id="removeWord" type="button">✕</button>
-          </div>
-        </div>
-      </div>
-
-      <p id="fileStatus" class="helper-text"></p>
-      <p id="knowledgeStatus" class="helper-text"></p>
-    </section>
-
-    <section class="section fade-up delay-2">
-      <div class="section-label">
-        <span>🤖</span>
-        <h2>Tu consulta</h2>
-      </div>
-
-      <div class="glass-surface query-card">
-        <textarea
-          id="question"
-          rows="4"
-          placeholder="Escribe tu pregunta sobre los datos cargados..."
-        ></textarea>
-
-        <div class="query-footer">
-          <div class="status-tags">
-            <span class="status-tag success-tag hidden" id="excelReadyTag">📊 Excel listo</span>
-            <span class="status-tag accent-tag hidden" id="wordReadyTag">📄 Word listo</span>
-            <span class="warning-text" id="warningText">Carga un Excel para comenzar</span>
-          </div>
-
-          <button id="askBtn" class="primary-btn" type="button">
-            <span id="askBtnText">Preguntar al asistente</span>
-          </button>
         </div>
       </div>
     </section>
 
-    <section class="section fade-up delay-3 response-section">
-      <div class="section-label">
-        <span>💬</span>
+    <section class="panel-grid">
+      <section class="card">
+        <div class="card-head">
+          <h2>1. Carga tu archivo principal</h2>
+          <p>Archivo de datos que se analizará.</p>
+        </div>
+
+        <label for="excelFile">Archivo Excel (.xlsx, .xls)</label>
+        <input type="file" id="excelFile" accept=".xlsx,.xls" />
+        <p id="fileStatus" class="status">No hay archivo cargado.</p>
+      </section>
+
+      <section class="card">
+        <div class="card-head">
+          <h2>2. Agrega conocimiento adicional</h2>
+          <p>Documento Word para enriquecer el contexto de respuesta.</p>
+        </div>
+
+        <label for="knowledgeFile">Documento Word (.docx)</label>
+        <input type="file" id="knowledgeFile" accept=".docx" />
+        <p id="knowledgeStatus" class="status">No hay documento cargado.</p>
+      </section>
+    </section>
+
+    <section class="card">
+      <div class="card-head">
+        <h2>3. Haz tu pregunta</h2>
+        <p>La IA responderá usando el Excel y, si existe, el documento de conocimiento.</p>
+      </div>
+
+      <textarea
+        id="question"
+        rows="5"
+        placeholder="Ejemplo: ¿Cuáles son los riesgos más frecuentes y qué acciones de mejora recomendarías según el documento cargado?"
+      ></textarea>
+
+      <div class="actions">
+        <button id="askBtn">Preguntar al asistente</button>
+      </div>
+    </section>
+
+    <section class="card response-card">
+      <div class="card-head">
         <h2>Respuesta del asistente</h2>
+        <p>Análisis generado con base en los archivos cargados.</p>
       </div>
 
-      <div id="responseBox" class="glass-surface response-box">
+      <div id="responseBox" class="response">
         Aquí aparecerá la respuesta.
       </div>
     </section>
-
-    <footer class="footer">
-      Mikey Assist de Análisis · Listo para conectar con tu backend
-    </footer>
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
