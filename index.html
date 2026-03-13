@@ -3,41 +3,121 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Demo Asistente IA</title>
+  <title>Mikey Assist</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <main class="container">
-    <h1>Demo de Asistente Virtual</h1>
-    <p class="subtitle">
-      Sube un archivo Excel, haz una pregunta y el asistente responderá usando el contenido del archivo.
-    </p>
+  <div class="bg-glow glow-one"></div>
+  <div class="bg-glow glow-two"></div>
 
-    <section class="card">
-      <label for="excelFile">Subir archivo Excel (.xlsx):</label>
-      <input type="file" id="excelFile" accept=".xlsx,.xls" />
-      <p id="fileStatus" class="status">No hay archivo cargado.</p>
+  <main class="page">
+    <header class="hero fade-up">
+      <div class="hero-avatar glow-pulse">🤖</div>
+      <h1 class="hero-title">
+        <span class="gradient-text">Mikey Assist</span><br />
+        <span class="hero-title-secondary">de Análisis de Datos</span>
+      </h1>
+      <p class="hero-subtitle">
+        Carga tus archivos, haz preguntas y obtén respuestas inteligentes impulsadas por inteligencia artificial.
+      </p>
+    </header>
+
+    <section class="section fade-up delay-1">
+      <div class="section-label">
+        <span>✨</span>
+        <h2>Fuentes de datos</h2>
+      </div>
+
+      <div class="upload-grid">
+        <div class="upload-card glass-surface" id="excelDropzone">
+          <input type="file" id="excelFile" accept=".xlsx,.xls" hidden />
+          <div class="upload-empty" id="excelEmpty">
+            <div class="upload-icon excel-icon">📊</div>
+            <p class="upload-title">Archivo Excel</p>
+            <p class="upload-subtitle">.xlsx, .xls — Datos principales</p>
+            <p class="upload-hint">Arrastra o haz clic para subir</p>
+          </div>
+          <div class="upload-loaded hidden" id="excelLoaded">
+            <div class="upload-file-icon success-bg">📊</div>
+            <div class="upload-file-info">
+              <p class="upload-file-name" id="excelName"></p>
+              <p class="upload-file-meta success-text" id="excelMeta"></p>
+            </div>
+            <button class="remove-btn" id="removeExcel" type="button">✕</button>
+          </div>
+        </div>
+
+        <div class="upload-card glass-surface" id="wordDropzone">
+          <input type="file" id="knowledgeFile" accept=".docx" hidden />
+          <div class="upload-empty" id="wordEmpty">
+            <div class="upload-icon word-icon">📄</div>
+            <p class="upload-title">Documento Word</p>
+            <p class="upload-subtitle">.docx — Conocimiento adicional</p>
+            <p class="upload-hint">Arrastra o haz clic para subir</p>
+          </div>
+          <div class="upload-loaded hidden" id="wordLoaded">
+            <div class="upload-file-icon accent-bg">📄</div>
+            <div class="upload-file-info">
+              <p class="upload-file-name" id="wordName"></p>
+              <p class="upload-file-meta accent-text" id="wordMeta"></p>
+            </div>
+            <button class="remove-btn" id="removeWord" type="button">✕</button>
+          </div>
+        </div>
+      </div>
+
+      <p id="fileStatus" class="helper-text"></p>
+      <p id="knowledgeStatus" class="helper-text"></p>
     </section>
 
-    <section class="card">
-      <label for="question">Tu pregunta:</label>
-      <textarea
-        id="question"
-        rows="5"
-        placeholder="Ejemplo: ¿Cuáles son los riesgos más frecuentes en esta base de datos?"
-      ></textarea>
-      <button id="askBtn">Preguntar</button>
+    <section class="section fade-up delay-2">
+      <div class="section-label">
+        <span>🤖</span>
+        <h2>Tu consulta</h2>
+      </div>
+
+      <div class="glass-surface query-card">
+        <textarea
+          id="question"
+          rows="4"
+          placeholder="Escribe tu pregunta sobre los datos cargados..."
+        ></textarea>
+
+        <div class="query-footer">
+          <div class="status-tags">
+            <span class="status-tag success-tag hidden" id="excelReadyTag">📊 Excel listo</span>
+            <span class="status-tag accent-tag hidden" id="wordReadyTag">📄 Word listo</span>
+            <span class="warning-text" id="warningText">Carga un Excel para comenzar</span>
+          </div>
+
+          <button id="askBtn" class="primary-btn" type="button">
+            <span id="askBtnText">Preguntar al asistente</span>
+          </button>
+        </div>
+      </div>
     </section>
 
-    <section class="card">
-      <h2>Respuesta del asistente</h2>
-      <div id="responseBox" class="response">
+    <section class="section fade-up delay-3 response-section">
+      <div class="section-label">
+        <span>💬</span>
+        <h2>Respuesta del asistente</h2>
+      </div>
+
+      <div id="responseBox" class="glass-surface response-box">
         Aquí aparecerá la respuesta.
       </div>
     </section>
+
+    <footer class="footer">
+      Mikey Assist de Análisis · Listo para conectar con tu backend
+    </footer>
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+  <script src="https://unpkg.com/mammoth/mammoth.browser.min.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
