@@ -340,18 +340,20 @@ button:disabled {
     padding: 18px;
     border-radius: 22px;
   }
+  
 .footer {
-  max-width: 900px;
+  max-width: 800px;
   margin: 40px auto 20px auto;
-  padding: 20px;
+  padding: 10px 20px;
   text-align: center;
-  font-size: 12px;
-  line-height: 1.6;
+  font-size: 11px;     /* tamaño más pequeño */
+  line-height: 1.5;
   color: #9aa4b2;
-  opacity: 0.85;
+  opacity: 0.8;
 }
 
   
 }
+
 
 
