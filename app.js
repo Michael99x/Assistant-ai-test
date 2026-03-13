@@ -6,8 +6,7 @@ const questionInput = document.getElementById("question");
 const askBtn = document.getElementById("askBtn");
 const responseBox = document.getElementById("responseBox");
 
-// Cambia esta URL por la de tu backend desplegado
-const BACKEND_URL = "https://assistant-ai-test.onrender.com/analyzee";
+const BACKEND_URL = "https://assistant-ai-test.onrender.com/analyze";
 
 let excelData = null;
 let excelSummary = null;
@@ -145,4 +144,3 @@ async function sendQuestion() {
     askBtn.textContent = "Preguntar al asistente";
   }
 }
-
