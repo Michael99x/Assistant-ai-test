@@ -12,7 +12,7 @@ const port = process.env.PORT || 10000;
 ENVIRONMENT VARIABLES (Render)
 
 Key: GEMINI_API_KEY
-Value: AIzaSyBq3BLbBNw04r0xacb-9Jh-NbgwZytHGp4
+Value: AIzaSyXXXXXXXXXXXX
 
 Ejemplo:
 GEMINI_API_KEY=AIzaSyXXXXXXXXXXXX
@@ -139,6 +139,7 @@ ${userContent}
 app.listen(port, () => {
   console.log(`Servidor escuchando en puerto ${port}`);
 });
+
 
 
 
