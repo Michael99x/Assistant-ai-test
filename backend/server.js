@@ -12,7 +12,7 @@ const port = process.env.PORT || 10000;
 ENVIRONMENT VARIABLES (Render)
 
 Key: GEMINI_API_KEY
-Value: AIzaSyXXXXXXXXXXXX
+Value: TU_API_KEY_DE_GEMINI
 
 Ejemplo:
 GEMINI_API_KEY=AIzaSyXXXXXXXXXXXX
@@ -74,6 +74,15 @@ Tu tarea es:
 5. Sugerir indicadores si la información lo permite.
 6. Si algo no aparece en los datos o en el documento adicional, debes decirlo claramente y no inventar.
 
+Reglas de formato obligatorias:
+- No uses asteriscos (*)
+- No uses viñetas
+- No uses markdown
+- No pongas títulos decorados
+- Redacta en párrafos claros y ordenados
+- Si necesitas enumerar ideas, hazlo con frases normales como: "Primero,", "Segundo,", "Además,", "Por último,"
+- La respuesta debe verse profesional, limpia y lista para leer por un usuario final
+
 Mantén respuestas claras, profesionales y fáciles de exponer en una demostración.
 `;
 
@@ -121,7 +130,10 @@ ${userContent}
 
     const result = await model.generateContent(prompt);
 
-    const text = result.response.text();
+    let text = result.response.text();
+
+    // Limpia cualquier asterisco que Gemini genere
+    text = text.replace(/\*/g, "");
 
     return res.json({
       answer: text
