@@ -341,22 +341,8 @@ button:disabled {
     border-radius: 22px;
   }
   
-.footer {
-  max-width: 800px;
-  margin: 40px auto 20px auto;
-  padding: 10px 20px;
-  text-align: center;
-  font-size: 11px;
-  line-height: 1.5;
-  color: #9aa4b2;
-  opacity: 0.8;
 }
 
-.footer p {
-  margin: 4px 0;
-}
-  
-}
 
 
 
