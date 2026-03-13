@@ -342,19 +342,23 @@ button:disabled {
   }
   
 .footer {
-  max-width: 800px !important;
-  margin: 40px auto 20px auto !important;
-  padding: 10px 20px !important;
-  text-align: center !important;
-  font-size: 11px !important;
-  line-height: 1.5 !important;
-  color: #9aa4b2 !important;
-  opacity: 0.8 !important;
+  max-width: 800px;
+  margin: 40px auto 20px auto;
+  padding: 10px 20px;
+  text-align: center;
+  font-size: 11px;
+  line-height: 1.5;
+  color: #9aa4b2;
+  opacity: 0.8;
 }
 
 .footer p {
-  margin: 4px 0 !important;
+  margin: 4px 0;
 }
+  
+}
+
+
 
 
 
